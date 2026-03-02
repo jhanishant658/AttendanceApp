@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.attendenceApp.AttendanceApp.com.attendenceApp.AttendanceApp.Entities.User;
 import com.attendenceApp.AttendanceApp.com.attendenceApp.AttendanceApp.Repositories.UserRepository;
+import com.attendenceApp.AttendanceApp.com.attendenceApp.AttendanceApp.Requests.LoginRequest;
 
 @Service
 public class UserService {
@@ -15,11 +16,11 @@ public class UserService {
            userRepository.save(user);
         return "User registered successfully";
     }
-    public String loginUser(String email, String password) {
+    public String loginUser(LoginRequest loginRequest) {
         // Implement user login logic here
         try{
-        User user = userRepository.findByEmail(email);
-        if (user != null && user.getPassword().equals(password)) {
+        User user = userRepository.findByEmail(loginRequest.getEmail());
+        if (user != null && user.getPassword().equals(loginRequest.getPassword())) {
             return "Login successful";
         } else {
             return "Invalid email or password";

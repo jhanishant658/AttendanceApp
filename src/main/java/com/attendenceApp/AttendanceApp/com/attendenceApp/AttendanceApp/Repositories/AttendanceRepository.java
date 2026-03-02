@@ -6,4 +6,6 @@ import com.attendenceApp.AttendanceApp.com.attendenceApp.AttendanceApp.Entities.
 
 public interface AttendanceRepository extends JpaRepository<Attendance ,Long> {
 
+    int countByUserIdAndStatus(Long userId, String string);
+
 }

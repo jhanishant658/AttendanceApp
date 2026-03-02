@@ -1,6 +1,4 @@
 package com.attendenceApp.AttendanceApp.com.attendenceApp.AttendanceApp.Entities;
-
-import jakarta.annotation.Generated;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
