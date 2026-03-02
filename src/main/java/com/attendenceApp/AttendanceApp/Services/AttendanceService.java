@@ -1,11 +1,11 @@
-package com.attendenceApp.AttendanceApp.com.attendenceApp.AttendanceApp.Services;
+package com.attendenceApp.AttendanceApp.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.attendenceApp.AttendanceApp.com.attendenceApp.AttendanceApp.Entities.Attendance;
-import com.attendenceApp.AttendanceApp.com.attendenceApp.AttendanceApp.Repositories.AttendanceRepository;
-import com.attendenceApp.AttendanceApp.com.attendenceApp.AttendanceApp.Response.AttendanceResponse;
+import com.attendenceApp.AttendanceApp.Entities.Attendance;
+import com.attendenceApp.AttendanceApp.Repositories.AttendanceRepository;
+import com.attendenceApp.AttendanceApp.Response.AttendanceResponse;
 
 @Service
 public class AttendanceService {

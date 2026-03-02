@@ -1,4 +1,4 @@
-package com.attendenceApp.AttendanceApp.com.attendenceApp.AttendanceApp.Response;
+package com.attendenceApp.AttendanceApp.Response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

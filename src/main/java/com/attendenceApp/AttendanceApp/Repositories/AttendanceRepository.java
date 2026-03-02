@@ -1,8 +1,8 @@
-package com.attendenceApp.AttendanceApp.com.attendenceApp.AttendanceApp.Repositories;
+package com.attendenceApp.AttendanceApp.Repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.attendenceApp.AttendanceApp.com.attendenceApp.AttendanceApp.Entities.Attendance;
+import com.attendenceApp.AttendanceApp.Entities.Attendance;
 
 public interface AttendanceRepository extends JpaRepository<Attendance ,Long> {
 
