@@ -7,8 +7,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+public class AddOldAttendance {
 
-public class AttendanceRequest {
-   private Long userId ;
-    private String status ;
+    private Long userId;
+    private String date;
+    private String status;
+
+    
 }

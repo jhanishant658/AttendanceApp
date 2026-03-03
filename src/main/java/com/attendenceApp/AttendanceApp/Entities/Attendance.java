@@ -14,8 +14,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Attendance {
    @Id
-   @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-   private Long id;
+    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    private Long id;
    private Long userId;
     private String date;
     private String status;

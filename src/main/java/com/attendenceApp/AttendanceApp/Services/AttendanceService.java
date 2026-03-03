@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 
 import com.attendenceApp.AttendanceApp.Entities.Attendance;
 import com.attendenceApp.AttendanceApp.Repositories.AttendanceRepository;
+import com.attendenceApp.AttendanceApp.Requests.AttendanceRequest;
+import com.attendenceApp.AttendanceApp.Requests.AddOldAttendance;
 import com.attendenceApp.AttendanceApp.Response.AttendanceResponse;
 
 @Service
@@ -12,9 +14,14 @@ public class AttendanceService {
     @Autowired
     private AttendanceRepository attendanceRepository ;
     
-    public String markAttendance(Long userId , String status) {
+    public String markAttendance(AttendanceRequest attendanceRequest) {
         // Implement attendance marking logic here
         try{
+            long userId = attendanceRequest.getUserId();
+            String status = attendanceRequest.getStatus();
+            if(attendanceRepository.existsByUserIdAndDate(userId, java.time.LocalDate.now().toString())) {
+                return "Attendance already marked for today" ;
+            }
         Attendance attendance = new Attendance();
         attendance.setUserId(userId);
         attendance.setStatus(status);
@@ -72,24 +79,33 @@ else {
 }
         return new AttendanceResponse(presentCount, abbsentCount, totalAttendance, attendancePercentage, daysRequiredFor75Percent, daysRequiredFor60Percent, daysWeCanBeAbsentFor75Percent, daysWeCanBeAbsentFor60Percent);
     }
-    public String updateAttendance(Long attendanceId , String status) {
+    public String updateAttendance(AddOldAttendance attendance) {
         // Implement attendance update logic here
+        Long userId = attendance.getUserId();
+        String date = attendance.getDate();
+        String status = attendance.getStatus();
         try{
-        Attendance attendance = attendanceRepository.findById(attendanceId).orElse(null);
-        if(attendance == null) {
+        Attendance attendances =  attendanceRepository.findByUserIdAndDate(userId, date) ;
+        if(attendances == null) {
             return "Attendance record not found" ;
         }
-        attendance.setStatus(status);
-        attendanceRepository.save(attendance);
+        attendances.setStatus(status);
+        attendanceRepository.save(attendances);
         return "Attendance updated successfully" ;
     }
     catch(Exception e){
         return "An error occurred while updating attendance: " + e.getMessage();
     }
     }
-    public String AddOldAttendance(Long userId , String date , String status) {
+    public String AddOldAttendance(AddOldAttendance addOldAttendance) {
+        Long userId = addOldAttendance.getUserId();
+        String date = addOldAttendance.getDate();
+        String status = addOldAttendance.getStatus();
         // Implement logic to add old attendance record here
         try{
+        if(attendanceRepository.existsByUserIdAndDate(userId, date)) {
+            return "Attendance record already exists for the given date" ;
+        }
         Attendance attendance = new Attendance();
         attendance.setUserId(userId);
         attendance.setStatus(status);
@@ -101,4 +117,5 @@ else {
         return "An error occurred while adding old attendance record: " + e.getMessage();
     }
     }
+    
 }
