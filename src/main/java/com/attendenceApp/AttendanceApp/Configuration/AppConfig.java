@@ -15,7 +15,7 @@ public class AppConfig {
             public void addCorsMappings(CorsRegistry registry) {
 
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:5173") 
+                        .allowedOrigins("https://attendance-app-frontend-ten.vercel.app") 
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS","PATCH")
                         .allowedHeaders("*")
                         .allowCredentials(true);
