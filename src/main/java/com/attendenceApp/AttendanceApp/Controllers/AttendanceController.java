@@ -13,8 +13,6 @@ import com.attendenceApp.AttendanceApp.Response.MonthlyAttendanceResponse;
 import com.attendenceApp.AttendanceApp.Services.AttendanceService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,7 +29,7 @@ public class AttendanceController {
     
     return attendanceService.markAttendance(attendanceRequest);
   }
-@GetMapping("/summary")
+@PostMapping("/summary")
      public AttendanceResponse getAttendanceSummary(@RequestBody AttendanceReq req) {
         return attendanceService.getAttendanceSummary(req.getUserId());
      }
@@ -43,7 +41,7 @@ public class AttendanceController {
       public String updateAttendance(@RequestBody AddOldAttendance addOldAttendance) {
           return attendanceService.updateAttendance(addOldAttendance);
       }
-      @GetMapping("/byMonth")
+      @PostMapping("/byMonth")
       public MonthlyAttendanceResponse getMethodName(@RequestBody GetAttendanceByMonthRequest request) {
         long userId = request.getUserId();
         String param = request.getMonth() ;
