@@ -1,5 +1,6 @@
 package com.attendenceApp.AttendanceApp.Services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,10 @@ import org.springframework.stereotype.Service;
 import com.attendenceApp.AttendanceApp.Entities.Attendance;
 import com.attendenceApp.AttendanceApp.Repositories.AttendanceRepository;
 import com.attendenceApp.AttendanceApp.Requests.AttendanceRequest;
+import com.attendenceApp.AttendanceApp.Requests.MonthlyResReq;
 import com.attendenceApp.AttendanceApp.Requests.AddOldAttendance;
 import com.attendenceApp.AttendanceApp.Response.AttendanceResponse;
+import com.attendenceApp.AttendanceApp.Response.MonthlyAttendanceResponse;
 
 @Service
 public class AttendanceService {
@@ -120,8 +123,22 @@ else {
     }
     }
     
-    public List<Attendance> getAllAttendanceByMonth(Long userId, String month) {
+    public MonthlyAttendanceResponse getAllAttendanceByMonth(Long userId, String month) {
         // Implement logic to retrieve attendance records for a specific month here
-        return attendanceRepository.findByUserIdAndDateStartingWith(userId, month);
+        List<Attendance> attendances = attendanceRepository.findByUserIdAndDateStartingWith(userId, month);
+        // Calculate monthly attendance statistics
+        // Return MonthlyAttendanceResponse object
+        MonthlyAttendanceResponse response = new MonthlyAttendanceResponse();
+        response.setMonth(Integer.parseInt(month.split("-")[1])); // Assuming month is in "YYYY-MM" format
+        response.setYear(Integer.parseInt(month.split("-")[0]));
+        List<MonthlyResReq> attendanceList = new ArrayList<>();
+        for (Attendance attendance : attendances) {
+            MonthlyResReq monthlyResReq = new MonthlyResReq();
+            monthlyResReq.setDate(attendance.getDate());
+            monthlyResReq.setStatus(attendance.getStatus());
+            attendanceList.add(monthlyResReq);
+        }
+        response.setAttendances(attendanceList);
+        return response;
     }
 }
