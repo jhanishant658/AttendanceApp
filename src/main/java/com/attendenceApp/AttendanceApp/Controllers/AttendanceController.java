@@ -1,13 +1,18 @@
 package com.attendenceApp.AttendanceApp.Controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.RestController;
 
+import com.attendenceApp.AttendanceApp.Entities.Attendance;
 import com.attendenceApp.AttendanceApp.Requests.AddOldAttendance;
+import com.attendenceApp.AttendanceApp.Requests.AttendanceReq;
 import com.attendenceApp.AttendanceApp.Requests.AttendanceRequest;
+import com.attendenceApp.AttendanceApp.Requests.GetAttendanceByMonthRequest;
 import com.attendenceApp.AttendanceApp.Response.AttendanceResponse;
 import com.attendenceApp.AttendanceApp.Services.AttendanceService;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -29,8 +34,8 @@ public class AttendanceController {
     return attendanceService.markAttendance(attendanceRequest);
   }
 @GetMapping("/summary")
-     public AttendanceResponse getAttendanceSummary(@RequestParam("userId") Long userId) {
-        return attendanceService.getAttendanceSummary(userId);
+     public AttendanceResponse getAttendanceSummary(@RequestBody AttendanceReq req) {
+        return attendanceService.getAttendanceSummary(req.getUserId());
      }
      @PostMapping("/addOldAttendance")
       public String addOldAttendance(@RequestBody AddOldAttendance addOldAttendance) {
@@ -39,6 +44,12 @@ public class AttendanceController {
       @PatchMapping("/update")
       public String updateAttendance(@RequestBody AddOldAttendance addOldAttendance) {
           return attendanceService.updateAttendance(addOldAttendance);
+      }
+      @GetMapping("/byMonth")
+      public List<Attendance> getMethodName(@RequestBody GetAttendanceByMonthRequest request) {
+        long userId = request.getUserId();
+        String param = request.getMonth() ;
+          return attendanceService.getAllAttendanceByMonth(userId, param);
       }
       
 

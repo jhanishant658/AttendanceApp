@@ -1,0 +1,16 @@
+package com.attendenceApp.AttendanceApp.Requests;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class GetAttendanceByMonthRequest {
+
+    private Long userId ;
+    private String month ;
+}

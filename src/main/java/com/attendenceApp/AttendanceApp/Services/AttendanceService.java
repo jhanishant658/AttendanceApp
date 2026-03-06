@@ -1,5 +1,7 @@
 package com.attendenceApp.AttendanceApp.Services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -118,4 +120,8 @@ else {
     }
     }
     
+    public List<Attendance> getAllAttendanceByMonth(Long userId, String month) {
+        // Implement logic to retrieve attendance records for a specific month here
+        return attendanceRepository.findByUserIdAndDateStartingWith(userId, month);
+    }
 }
