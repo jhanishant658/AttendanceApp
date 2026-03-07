@@ -144,4 +144,22 @@ else {
         response.setAttendances(attendanceList);
         return response;
     }
+    public String DaysRequiredToReachXPercentage(Long userId , int targetPercentage) {
+        int presentCount = attendanceRepository.countByUserIdAndStatus(userId, "present");
+        int abbsentCount = attendanceRepository.countByUserIdAndStatus(userId, "absent");
+        int totalAttendance = presentCount + abbsentCount;
+        double attendancePercentage = totalAttendance > 0 ? (presentCount * 100.0) / totalAttendance : 0.0 ; 
+        if(attendancePercentage >= targetPercentage) {
+            return "You have already reached the target attendance percentage of " + targetPercentage + "%";
+        }
+        int daysRequired = (int) Math.ceil((targetPercentage / 100.0 * totalAttendance - presentCount) / (1 - targetPercentage / 100.0));
+        return "You need to attend for " + daysRequired + " more day(s) to reach the target attendance percentage of " + targetPercentage + "%";
+    }
+    public String percentageIfAttendNextDays(Long userId , int nextDays) {
+        int presentCount = attendanceRepository.countByUserIdAndStatus(userId, "present");
+        int abbsentCount = attendanceRepository.countByUserIdAndStatus(userId, "absent");
+        int totalAttendance = presentCount + abbsentCount;
+       int newAttendancePercentage = (int) Math.ceil(((presentCount + nextDays) * 100.0) / (totalAttendance + nextDays));
+        return "If you attend the next " + nextDays + " day(s), your attendance percentage will be " + String.format("%.2f", newAttendancePercentage) + "%";
+    }
 }

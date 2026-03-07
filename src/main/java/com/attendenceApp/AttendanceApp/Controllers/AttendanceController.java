@@ -8,6 +8,7 @@ import com.attendenceApp.AttendanceApp.Requests.AddOldAttendance;
 import com.attendenceApp.AttendanceApp.Requests.AttendanceReq;
 import com.attendenceApp.AttendanceApp.Requests.AttendanceRequest;
 import com.attendenceApp.AttendanceApp.Requests.GetAttendanceByMonthRequest;
+import com.attendenceApp.AttendanceApp.Requests.percentageIfAttendNextDaysRequest;
 import com.attendenceApp.AttendanceApp.Response.AttendanceResponse;
 import com.attendenceApp.AttendanceApp.Response.MonthlyAttendanceResponse;
 import com.attendenceApp.AttendanceApp.Services.AttendanceService;
@@ -47,7 +48,18 @@ public class AttendanceController {
         String param = request.getMonth() ;
           return attendanceService.getAllAttendanceByMonth(userId, param);
       }
-      
+    @PostMapping("/percentageIfAttendNextDays")
+    public String percentageIfAttendNextDays(@RequestBody percentageIfAttendNextDaysRequest request) {
+        long userId = request.getUserId();
+        int nextDays = request.getNextDays() ;
+        return attendanceService.percentageIfAttendNextDays(userId, nextDays);
+    }
+    @PostMapping("/daysRequiredToReachXPercentage")
+    public String DaysRequiredToReachXPercentage(@RequestBody percentageIfAttendNextDaysRequest request) {
+        long userId = request.getUserId();
+        int nextDays = request.getNextDays() ;
+        return attendanceService.DaysRequiredToReachXPercentage(userId, nextDays);
+    }      
 
      
 }
