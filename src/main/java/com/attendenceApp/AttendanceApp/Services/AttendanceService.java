@@ -24,6 +24,9 @@ public class AttendanceService {
         try{
             long userId = attendanceRequest.getUserId();
             String status = attendanceRequest.getStatus();
+            if(java.time.LocalDate.now().getDayOfWeek().toString().equals("SATURDAY") || java.time.LocalDate.now().getDayOfWeek().toString().equals("SUNDAY")) {
+                return "Bro today is " + java.time.LocalDate.now().getDayOfWeek().toString() + " , you can't mark attendance today" ;
+            }
             if(attendanceRepository.existsByUserIdAndDate(userId, java.time.LocalDate.now().toString())) {
                 return "Attendance already marked for today" ;
             }
