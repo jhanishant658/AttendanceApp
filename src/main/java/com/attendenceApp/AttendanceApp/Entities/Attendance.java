@@ -1,23 +1,23 @@
 package com.attendenceApp.AttendanceApp.Entities;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
+@Document(collection = "attendance")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Attendance {
-   @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    private Long id;
-   private Long userId;
-    private String date;
-    private String status;
 
+    @Id
+    private String id;
+
+    private String userId;
+    private String date;   // (better: Date type later)
+    private String status;
 }

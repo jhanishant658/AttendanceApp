@@ -22,7 +22,7 @@ public class AttendanceService {
     public String markAttendance(AttendanceRequest attendanceRequest) {
         // Implement attendance marking logic here
         try{
-            long userId = attendanceRequest.getUserId();
+            String userId = attendanceRequest.getUserId();
             String status = attendanceRequest.getStatus();
             if(java.time.LocalDate.now().getDayOfWeek().toString().equals("SATURDAY") || java.time.LocalDate.now().getDayOfWeek().toString().equals("SUNDAY")) {
                 return "Bro today is " + java.time.LocalDate.now().getDayOfWeek().toString() + " , you can't mark attendance today" ;
@@ -41,7 +41,7 @@ public class AttendanceService {
         return "An error occurred while marking attendance: " + e.getMessage();
     }
     }
-    public AttendanceResponse getAttendanceSummary(Long userId) {
+    public AttendanceResponse getAttendanceSummary(String userId) {
         // Implement attendance summary logic here
         int presentCount = attendanceRepository.countByUserIdAndStatus(userId, "present");
         int abbsentCount = attendanceRepository.countByUserIdAndStatus(userId, "absent");
@@ -89,7 +89,7 @@ else {
     }
     public String updateAttendance(AddOldAttendance attendance) {
         // Implement attendance update logic here
-        Long userId = attendance.getUserId();
+        String userId = attendance.getUserId();
         String date = attendance.getDate();
         String status = attendance.getStatus();
         try{
@@ -106,7 +106,7 @@ else {
     }
     }
     public String AddOldAttendance(AddOldAttendance addOldAttendance) {
-        Long userId = addOldAttendance.getUserId();
+        String userId = addOldAttendance.getUserId();
         String date = addOldAttendance.getDate();
         String status = addOldAttendance.getStatus();
         // Implement logic to add old attendance record here
@@ -126,7 +126,7 @@ else {
     }
     }
     
-    public MonthlyAttendanceResponse getAllAttendanceByMonth(Long userId, String month) {
+    public MonthlyAttendanceResponse getAllAttendanceByMonth(String userId, String month) {
         // Implement logic to retrieve attendance records for a specific month here
         List<Attendance> attendances = attendanceRepository.findByUserIdAndDateStartingWith(userId, month);
         // Calculate monthly attendance statistics
@@ -144,7 +144,7 @@ else {
         response.setAttendances(attendanceList);
         return response;
     }
-    public String DaysRequiredToReachXPercentage(Long userId , int targetPercentage) {
+    public String DaysRequiredToReachXPercentage(String userId , int targetPercentage) {
         int presentCount = attendanceRepository.countByUserIdAndStatus(userId, "present");
         int abbsentCount = attendanceRepository.countByUserIdAndStatus(userId, "absent");
         int totalAttendance = presentCount + abbsentCount;
@@ -155,7 +155,7 @@ else {
         int daysRequired = (int) Math.ceil((targetPercentage / 100.0 * totalAttendance - presentCount) / (1 - targetPercentage / 100.0));
         return "You need to attend for " + daysRequired + " more day(s) to reach the target attendance percentage of " + targetPercentage + "%";
     }
-    public String percentageIfAttendNextDays(Long userId, int nextDays) {
+    public String percentageIfAttendNextDays(String userId, int nextDays) {
 
     int presentCount = attendanceRepository.countByUserIdAndStatus(userId, "present");
     int absentCount = attendanceRepository.countByUserIdAndStatus(userId, "absent");

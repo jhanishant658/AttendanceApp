@@ -10,6 +10,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class percentageIfAttendNextDaysRequest {
-    long userId ;
+    String userId ;
     int nextDays ;
 }

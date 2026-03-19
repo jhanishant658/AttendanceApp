@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AddOldAttendance {
 
-    private Long userId;
+    private String userId;
     private String date;
     private String status;
 

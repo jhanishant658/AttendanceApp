@@ -9,6 +9,6 @@ import lombok.Setter;
 @NoArgsConstructor
 
 public class AttendanceRequest {
-   private Long userId ;
+   private String userId ;
     private String status ;
 }
