@@ -11,6 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class GetAttendanceByMonthRequest {
 
-    private Long userId ;
+    private String userId ;
     private String month ;
 }

@@ -44,19 +44,19 @@ public class AttendanceController {
       }
       @PostMapping("/byMonth")
       public MonthlyAttendanceResponse getMethodName(@RequestBody GetAttendanceByMonthRequest request) {
-        long userId = request.getUserId();
+        String userId = request.getUserId();
         String param = request.getMonth() ;
           return attendanceService.getAllAttendanceByMonth(userId, param);
       }
     @PostMapping("/percentageIfAttendNextDays")
     public String percentageIfAttendNextDays(@RequestBody percentageIfAttendNextDaysRequest request) {
-        long userId = request.getUserId();
+        String userId = request.getUserId();
         int nextDays = request.getNextDays() ;
         return attendanceService.percentageIfAttendNextDays(userId, nextDays);
     }
     @PostMapping("/daysRequiredToReachXPercentage")
     public String DaysRequiredToReachXPercentage(@RequestBody percentageIfAttendNextDaysRequest request) {
-        long userId = request.getUserId();
+        String userId = request.getUserId();
         int nextDays = request.getNextDays() ;
         return attendanceService.DaysRequiredToReachXPercentage(userId, nextDays);
     }      
